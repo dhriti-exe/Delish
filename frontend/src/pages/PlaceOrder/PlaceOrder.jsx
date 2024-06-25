@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import "./PlaceOrder.css";
 import { StoreContext } from "../../context/StoreContext";
 // import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const PlaceOrder = () => {
@@ -48,6 +49,19 @@ const PlaceOrder = () => {
 			alert("Error");
 		}
 	}
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!token) {
+            toast.error("to place an order sign in first")
+            navigate('/cart')
+        }
+        else if (getTotalCartAmount() === 0) {
+            navigate('/cart')
+        }
+    }, [token])
+
 	return (
 		<form onSubmit={placeOrder} className="place-order">
 			<div className="place-order-left">
