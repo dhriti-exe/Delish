@@ -14,7 +14,14 @@ const port = process.env.PORT || 4000
 
 //middleware
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: [
+        "https://delish-frontend-cyan.vercel.app",
+        "https://delish-admin-ten.vercel.app",
+        "http://localhost:5173"
+    ],
+    credentials: true
+}))
 
 //db connection
 connectDB();
